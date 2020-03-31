@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Navbar } from "react-bootstrap";
+import { Navbar, Nav, NavItem } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import Routes from "./Routes";
 import "./App.css";
 
@@ -14,6 +15,16 @@ function App() {
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav pullRight>
+            <LinkContainer to="/signup">
+              <NavItem href="/signup">Signup</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/login">
+              <NavItem href="/login">Login</NavItem>
+            </LinkContainer>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
       <Routes />
     </div>
