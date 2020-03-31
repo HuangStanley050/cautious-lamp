@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-export default function NavBar() {
+export default function NavBar({ isAuthenticated, logOut }) {
   return (
     <Navbar fluid collapseOnSelect>
       <Navbar.Header>
@@ -14,12 +14,18 @@ export default function NavBar() {
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav pullRight>
-          <LinkContainer to="/signup">
-            <NavItem href="/signup">Signup</NavItem>
-          </LinkContainer>
-          <LinkContainer to="/login">
-            <NavItem href="/login">Login</NavItem>
-          </LinkContainer>
+          {isAuthenticated ? (
+            <NavItem onClick={logOut}>Logout</NavItem>
+          ) : (
+            <>
+              <LinkContainer to="/signup">
+                <NavItem>Signup</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/login">
+                <NavItem>Login</NavItem>
+              </LinkContainer>
+            </>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
