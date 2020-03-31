@@ -18,6 +18,7 @@ export default function Login(props) {
       setEmail("");
       setPassword("");
       props.userHasAuthenticated(true);
+      props.history.push("/");
     } catch (e) {
       alert(e.message);
     }

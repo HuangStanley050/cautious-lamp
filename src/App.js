@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
+import { withRouter } from "react-router-dom";
 import NavBar from "./NavBar";
 import Routes from "./Routes";
 import "./App.css";
 
-function App() {
+function App(props) {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
 
@@ -12,8 +13,11 @@ function App() {
     onLoad();
   }, []);
 
-  function handleLogout() {
+  async function handleLogout() {
+    await Auth.signOut();
+
     userHasAuthenticated(false);
+    props.history.push("/login");
   }
 
   async function onLoad() {
@@ -38,4 +42,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);
