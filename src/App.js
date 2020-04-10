@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 import { withRouter } from "react-router-dom";
 import { onError } from "./libs/errorLib";
+import { AppContext } from "./libs/contextLib";
 import NavBar from "./NavBar";
 import Routes from "./Routes";
 import "./App.css";

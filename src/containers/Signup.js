@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
+import { useHistory } from "react-router-dom";
 import {
   HelpBlock,
   FormGroup,
@@ -8,6 +9,7 @@ import {
 } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
+import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/onErrorLib";
 import "./Signup.css";
 
@@ -18,6 +20,8 @@ export default function Signup(props) {
     confirmPassword: "",
     confirmationCode: ""
   });
+  const history = useHistory();
+  const { userHasAuthenticated } = useAppContext();
   const [newUser, setNewUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
