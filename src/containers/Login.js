@@ -3,6 +3,7 @@ import { Auth } from "aws-amplify";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
+import { onError } from "../libs/errorLib";
 import "./Login.css";
 
 export default function Login(props) {
@@ -26,7 +27,7 @@ export default function Login(props) {
       props.userHasAuthenticated(true);
       props.history.push("/");
     } catch (e) {
-      alert(e.message);
+      onError(e);
       setIsLoading(false);
     }
   }

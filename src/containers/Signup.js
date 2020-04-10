@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Auth } from "aws-amplify";
 import {
   HelpBlock,
   FormGroup,
@@ -7,6 +8,7 @@ import {
 } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
+import { onError } from "../libs/onErrorLib";
 import "./Signup.css";
 
 export default function Signup(props) {
@@ -36,15 +38,33 @@ export default function Signup(props) {
 
     setIsLoading(true);
 
-    setNewUser("test");
-
-    setIsLoading(false);
+    try {
+      const newUser = await Auth.signUp({
+        username: fields.email,
+        password: fields.password
+      });
+      setIsLoading(false);
+      setNewUser(newUser);
+    } catch (e) {
+      onError(e);
+      setIsLoading(false);
+    }
   }
 
   async function handleConfirmationSubmit(event) {
     event.preventDefault();
 
     setIsLoading(true);
+    try {
+      await Auth.confirmSignUp(fields.email, fields.confirmationCode);
+      await Auth.signIn(fields.email, fields.password);
+
+      userHasAuthenticated(true);
+      history.push("/");
+    } catch (e) {
+      onError(e);
+      setIsLoading(false);
+    }
   }
 
   function renderConfirmationForm() {

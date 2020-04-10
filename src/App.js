@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 import { withRouter } from "react-router-dom";
+import { onError } from "./libs/errorLib";
 import NavBar from "./NavBar";
 import Routes from "./Routes";
 import "./App.css";
@@ -26,7 +27,7 @@ function App(props) {
       userHasAuthenticated(true);
     } catch (e) {
       if (e !== "No current user") {
-        alert(e);
+        onError(e);
       }
     }
 
